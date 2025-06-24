@@ -12,7 +12,18 @@ service / on new http:Listener(servicePort) {
             check caller->respond(authHeader);
 
         } else {
-            check caller->respond("Header Authorization manquant.");
+
+            string[] headerNames = ["Authorization", "Content-Type", "User-Agent"];
+            string info = "Headers reçus :\n";
+
+            foreach string name in headerNames {
+                var valResult = req.getHeader(name);
+                if valResult is string {
+                    info += name + ": " + valResult + "\n";
+                }
+            }
+
+            check caller->respond(info);
         }
     }
 }
