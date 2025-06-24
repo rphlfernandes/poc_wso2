@@ -1,6 +1,6 @@
 import ballerina/http;
 
-configurable int servicePort = 8080;
+configurable int servicePort = 9090;
 
 service / on new http:Listener(servicePort) {
     
