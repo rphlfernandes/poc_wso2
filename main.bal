@@ -13,7 +13,7 @@ service / on new http:Listener(servicePort) {
 
         } else {
 
-            string[] headerNames = ["Authorization", "Content-Type", "User-Agent"];
+            string[] headerNames = ["Authorization", "Content-Type", "User-Agent","Test-Key"];
             string info = "Headers reçus :\n";
 
             foreach string name in headerNames {
