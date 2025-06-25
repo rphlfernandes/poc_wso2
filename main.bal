@@ -1,4 +1,5 @@
 import ballerina/http;
+import ballerina/lang. string;
 
 configurable int servicePort = 9090;
 
@@ -13,7 +14,7 @@ service / on new http:Listener(servicePort) {
 
         } else {
 
-            string[] headerNames = ["Authorization", "Content-Type", "User-Agent","Test-Key"];
+            string[] headerNames = ["Authorization", "Content-Type", "User-Agent", "Test-Key"];
             string info = "Headers reçus :\n";
 
             foreach string name in headerNames {
@@ -22,8 +23,15 @@ service / on new http:Listener(servicePort) {
                     info += name + ": " + valResult + "\n";
                 }
             }
+            var tokenResult = req.getHeader("Test-Key");
 
-            check caller->respond(info);
+            if tokenResult is string {
+                string token = tokenResult;
+                string[] parts = regex:split(token, ".");
+                check caller->respond(parts[1]);
+            }
+                check caller->respond("check return");
+
         }
     }
 }
