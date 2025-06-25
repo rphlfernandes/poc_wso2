@@ -1,5 +1,5 @@
 import ballerina/http;
-import ballerina/lang. string;
+import ballerina/regex;
 
 configurable int servicePort = 9090;
 
